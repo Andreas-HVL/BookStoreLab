@@ -26,13 +26,19 @@ namespace BookStoreLab
                         }
                         break;
                     case '2':
-                            
+                        Console.Clear();
+                        using (var context = new MyBookStoreContext())
+                        {
+                            MenuFunctions.UpdateStock(context);
+                        }
                         break;
                     case '3':
-                            
+                        Console.Clear();
+                        //MenuFunctions.AddData();
                         break;
                     case '4':
-                        
+                        Console.Clear();
+                        //MenuFunctions.RemoveData();
                         break;
                     case '5':
                         programRunning = false;
