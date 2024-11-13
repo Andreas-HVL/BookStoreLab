@@ -10,40 +10,51 @@ namespace BookStoreLab.Functions
 {
     public static class Fetcher
     {
-        public static void StockStatus(MyBookStoreContext context)
+        public static void StockStatus(MyBookStoreContext context, string prompt)
         {
-            
-            Console.WriteLine("Please select which store to check stock status for.");
+            Console.WriteLine(prompt);
             var stores = context.Stores.ToList();
             foreach (var store in stores)
             {
                 Console.WriteLine($"Store: {store.StoreName}\nStoreID: {store.StoreId}");
             }
-            int output = Convert.ToInt32(Console.ReadLine());
-            
-            Console.Clear();
-            var storeList = context.Stores
-                        .Include(s => s.StockStatuses)
-                            .ThenInclude(ss => ss.Isbn13Navigation)
-                                .ThenInclude(sss => sss.Author)
-                        .FirstOrDefault(s => s.StoreId == output);
-            if (storeList != null)
-            {
-                Console.WriteLine($"{storeList.StoreName} stock info:");
 
-                foreach (var stockStatus in storeList.StockStatuses)
+            while (true)
+            {
+                int? storeId = InputReader.GetValidIntegerInput("Enter the Store ID, or input 'Q' to leave: ");
+
+                if (!storeId.HasValue)
                 {
-                    var bookTitle = stockStatus.Isbn13Navigation.Title;
-                    var bookAuthor = stockStatus.Isbn13Navigation.Author.FirstName + " " + stockStatus.Isbn13Navigation.Author.LastName;
-                    Console.WriteLine($"Author: {bookAuthor}\nTitle: {bookTitle}\nISBN: {stockStatus.Isbn13}, Quantity: {stockStatus.CurrentStock}\n");
+                    Writer.AnyKeyReturn();
+                    Console.Clear();
+                    break;
+                }
+
+                var storeList = context.Stores
+                    .Include(s => s.StockStatuses)
+                        .ThenInclude(ss => ss.Isbn13Navigation)
+                            .ThenInclude(sss => sss.Author)
+                    .FirstOrDefault(s => s.StoreId == storeId);
+                
+                if (storeList != null)
+                {
+                    Console.Clear();
+                    Console.WriteLine($"{storeList.StoreName} stock info:");
+
+                    foreach (var stockStatus in storeList.StockStatuses)
+                    {
+                        var bookTitle = stockStatus.Isbn13Navigation.Title;
+                        var bookAuthor = stockStatus.Isbn13Navigation.Author.FirstName + " " + stockStatus.Isbn13Navigation.Author.LastName;
+                        Console.WriteLine($"Author: {bookAuthor}\nTitle: {bookTitle}\nISBN: {stockStatus.Isbn13}, Quantity: {stockStatus.CurrentStock}\n");
+                    }
+                    Console.ReadKey();
+                    break; 
+                }
+                else
+                {
+                    Console.WriteLine("Store not found. Please enter a valid Store ID.");
                 }
             }
-            else
-            {
-                Console.WriteLine("Store not found.");
-            }
-            Console.WriteLine("Press any key to return.");
-            Console.ReadKey();
         }
     }
 }

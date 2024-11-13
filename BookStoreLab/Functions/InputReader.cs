@@ -39,11 +39,11 @@ namespace BookStoreLab.Functions
 
                 if (int.TryParse(input, out int result))
                 {
-                    return result; // Return the valid integer input
+                    return result; 
                 }
                 else if (input.Equals("Q", StringComparison.OrdinalIgnoreCase))
                 {
-                    return null; // Signal that the user wants to quit
+                    return null; 
                 }
                 else
                 {
