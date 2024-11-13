@@ -22,7 +22,8 @@ namespace BookStoreLab
                         Console.Clear();
                         using (var context = new MyBookStoreContext())
                         {
-                            Fetcher.StockStatus(context, "Please select which store to check stock status for.");
+                            int? storeIdOut;
+                            Fetcher.StockStatus(context, "Please select which store to check stock status for.", out storeIdOut);
                             Writer.AnyKeyReturn();
                         }
                         break;

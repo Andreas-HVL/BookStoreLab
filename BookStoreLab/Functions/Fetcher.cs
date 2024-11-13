@@ -10,9 +10,10 @@ namespace BookStoreLab.Functions
 {
     public static class Fetcher
     {
-        public static void StockStatus(MyBookStoreContext context, string prompt)
+        public static void StockStatus(MyBookStoreContext context, string prompt, out int? storeIdOut)
         {
             Console.WriteLine(prompt);
+            storeIdOut = null;
             var stores = context.Stores.ToList();
             foreach (var store in stores)
             {
@@ -43,11 +44,12 @@ namespace BookStoreLab.Functions
 
                     foreach (var stockStatus in storeList.StockStatuses)
                     {
+                        var stock = stockStatus.CurrentStock == 0 ? "Out of Stock" : stockStatus.CurrentStock.ToString();
                         var bookTitle = stockStatus.Isbn13Navigation.Title;
                         var bookAuthor = stockStatus.Isbn13Navigation.Author.FirstName + " " + stockStatus.Isbn13Navigation.Author.LastName;
-                        Console.WriteLine($"Author: {bookAuthor}\nTitle: {bookTitle}\nISBN: {stockStatus.Isbn13}, Quantity: {stockStatus.CurrentStock}\n");
+                        Console.WriteLine($"Author: {bookAuthor}\nTitle: {bookTitle}\nISBN: {stockStatus.Isbn13}, Quantity: {stock}\n");
                     }
-                    Console.ReadKey();
+                    storeIdOut = storeId;
                     break; 
                 }
                 else

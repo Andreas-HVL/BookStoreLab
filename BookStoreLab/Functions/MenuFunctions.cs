@@ -46,8 +46,15 @@ namespace BookStoreLab.Functions
 
         public static void UpdateStock(MyBookStoreContext context)
         {
-            Fetcher.StockStatus(context, "Please select which store to update stock for.");
-
+            int? storeIdOut;
+            Fetcher.StockStatus(context, "Please select which store to update stock for.", out storeIdOut);
+            if (storeIdOut != null)
+            {
+                var currentStore = context.Stores.SingleOrDefault(s => s.StoreId == storeIdOut);
+                Console.WriteLine($"{currentStore.StoreName}");
+                Console.ReadKey();
+            }
+            
 
         }
     }
