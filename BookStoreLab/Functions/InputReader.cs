@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookStoreLab.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,5 +29,29 @@ namespace BookStoreLab.Functions
             // Check if the character is between '1' and the max number in char form
             return keyChar >= '1' && keyChar <= '0' + maxValidNumber;
         }
+
+        public static int? GetValidIntegerInput(string prompt)
+        {
+            while (true)
+            {
+                Console.Write(prompt);
+                string input = Console.ReadLine();
+
+                if (int.TryParse(input, out int result))
+                {
+                    return result; // Return the valid integer input
+                }
+                else if (input.Equals("Q", StringComparison.OrdinalIgnoreCase))
+                {
+                    return null; // Signal that the user wants to quit
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a numeric ID or 'Q' to quit.");
+                }
+            }
+        }
     }
+    
+    
 }

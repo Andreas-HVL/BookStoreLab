@@ -18,6 +18,7 @@ namespace BookStoreLab.Functions
             Console.WriteLine("4: Remove data");
             Console.WriteLine("5: Close program");
         }
+
        
         public static void LoggedInMenu()
         {

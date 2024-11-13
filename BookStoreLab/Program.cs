@@ -22,7 +22,7 @@ namespace BookStoreLab
                         Console.Clear();
                         using (var context = new MyBookStoreContext())
                         {
-                            Fetcher.StockStatus(context, MenuFunctions.CheckStock(context));
+                            Fetcher.StockStatus(context);
                         }
                         break;
                     case '2':

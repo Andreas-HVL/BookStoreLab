@@ -10,19 +10,28 @@ namespace BookStoreLab.Functions
 {
     public static class Fetcher
     {
-        public static void StockStatus(MyBookStoreContext context, int storeId)
+        public static void StockStatus(MyBookStoreContext context)
         {
+            
+            Console.WriteLine("Please select which store to check stock status for.");
+            var stores = context.Stores.ToList();
+            foreach (var store in stores)
+            {
+                Console.WriteLine($"Store: {store.StoreName}\nStoreID: {store.StoreId}");
+            }
+            int output = Convert.ToInt32(Console.ReadLine());
+            
             Console.Clear();
-            var store = context.Stores
+            var storeList = context.Stores
                         .Include(s => s.StockStatuses)
                             .ThenInclude(ss => ss.Isbn13Navigation)
                                 .ThenInclude(sss => sss.Author)
-                        .FirstOrDefault(s => s.StoreId == storeId);
-            if (store != null)
+                        .FirstOrDefault(s => s.StoreId == output);
+            if (storeList != null)
             {
-                Console.WriteLine($"{store.StoreName} stock info:");
+                Console.WriteLine($"{storeList.StoreName} stock info:");
 
-                foreach (var stockStatus in store.StockStatuses)
+                foreach (var stockStatus in storeList.StockStatuses)
                 {
                     var bookTitle = stockStatus.Isbn13Navigation.Title;
                     var bookAuthor = stockStatus.Isbn13Navigation.Author.FirstName + " " + stockStatus.Isbn13Navigation.Author.LastName;
