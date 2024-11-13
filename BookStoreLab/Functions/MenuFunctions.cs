@@ -24,6 +24,18 @@ namespace BookStoreLab.Functions
 
         public static void AddData(MyBookStoreContext context)
         {
+            Console.WriteLine("Add Book or Author?");
+            Console.WriteLine("1: Book\n2: Author\n3:Abort");
+            var menuChoice = InputReader.SingleKey(3);
+            switch (menuChoice)
+            {
+                case '1':
+                    break;
+                case '2':
+                    break;
+                case '3':
+                    break;
+            }
 
         }
 
