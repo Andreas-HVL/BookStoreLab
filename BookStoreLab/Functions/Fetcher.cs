@@ -41,7 +41,7 @@ namespace BookStoreLab.Functions
                 {
                     Console.Clear();
                     Console.WriteLine($"{storeList.StoreName} stock info:");
-
+    
                     foreach (var stockStatus in storeList.StockStatuses)
                     {
                         var stock = stockStatus.CurrentStock == 0 ? "Out of Stock" : stockStatus.CurrentStock.ToString();

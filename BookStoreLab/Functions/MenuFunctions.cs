@@ -51,8 +51,9 @@ namespace BookStoreLab.Functions
             if (storeIdOut != null)
             {
                 var currentStore = context.Stores.SingleOrDefault(s => s.StoreId == storeIdOut);
-                Console.WriteLine($"{currentStore.StoreName}");
-                Console.ReadKey();
+                Console.WriteLine("Please enter the ISBN you wish to update stock for");
+                string input = Console.ReadLine();
+                
             }
             
 
