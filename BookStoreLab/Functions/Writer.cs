@@ -16,7 +16,9 @@ namespace BookStoreLab.Functions
             Console.WriteLine("2: Update stock");
             Console.WriteLine("3: Add data");
             Console.WriteLine("4: Remove data");
-            Console.WriteLine("5: Close program");
+            Console.WriteLine("5: Edit data");
+            Console.WriteLine("6: List data");
+            Console.WriteLine("7: Close program");
         }
        
         public static void AnyKeyReturn()

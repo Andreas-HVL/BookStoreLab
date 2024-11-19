@@ -35,7 +35,7 @@ namespace BookStoreLab.Functions
         {
             while (true)
             {
-                Console.Write(prompt);
+                Console.WriteLine(prompt);
                 string input = Console.ReadLine();
 
                 if (int.TryParse(input, out int result))
@@ -57,7 +57,7 @@ namespace BookStoreLab.Functions
         {
             while (true)
             {
-                Console.Write(prompt);
+                Console.WriteLine(prompt);
                 string input = Console.ReadLine();
                 if (decimal.TryParse(input, out decimal result))
                 {

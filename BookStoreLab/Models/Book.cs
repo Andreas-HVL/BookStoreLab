@@ -11,7 +11,7 @@ public partial class Book
 
     public string Language { get; set; } = null!;
 
-    public decimal Price { get; set; }
+    public decimal? Price { get; set; }
 
     public DateOnly ReleaseDate { get; set; }
 

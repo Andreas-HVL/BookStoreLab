@@ -76,5 +76,15 @@ namespace BookStoreLab.Functions
             }
         }
 
+        public static void ListBooks(MyBookStoreContext context)
+        {
+            var books = context.Books.ToList();
+            foreach (var book in books)
+            {
+                Console.WriteLine($"ISBN: {book.Isbn13}, {book.Title}");
+            }
+        }
+
+        
     }
 }

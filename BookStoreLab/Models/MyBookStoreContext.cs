@@ -66,13 +66,12 @@ public partial class MyBookStoreContext : DbContext
             entity.Property(e => e.Language)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.Price).HasColumnType("decimal(5, 2)");
+            entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.PublisherId).HasColumnName("PublisherID");
             entity.Property(e => e.Title).HasMaxLength(50);
 
             entity.HasOne(d => d.Author).WithMany(p => p.Books)
                 .HasForeignKey(d => d.AuthorId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Author");
 
             entity.HasOne(d => d.Publisher).WithMany(p => p.Books)
@@ -142,6 +141,7 @@ public partial class MyBookStoreContext : DbContext
 
             entity.HasOne(d => d.Isbn13Navigation).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.Isbn13)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__Orders__ISBN13__2CF2ADDF");
 
             entity.HasOne(d => d.Store).WithMany(p => p.Orders)
@@ -178,7 +178,6 @@ public partial class MyBookStoreContext : DbContext
 
             entity.HasOne(d => d.Isbn13Navigation).WithMany(p => p.StockStatuses)
                 .HasForeignKey(d => d.Isbn13)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__StockStat__ISBN1__0D7A0286");
 
             entity.HasOne(d => d.Store).WithMany(p => p.StockStatuses)
