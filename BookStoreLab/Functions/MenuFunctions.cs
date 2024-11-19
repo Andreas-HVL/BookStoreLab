@@ -30,6 +30,8 @@ namespace BookStoreLab.Functions
             switch (menuChoice)
             {
                 case '1':
+                    
+                    string author = Console.ReadLine();
                     break;
                 case '2':
                     break;
@@ -53,10 +55,46 @@ namespace BookStoreLab.Functions
                 var currentStore = context.Stores.SingleOrDefault(s => s.StoreId == storeIdOut);
                 Console.WriteLine("Please enter the ISBN you wish to update stock for");
                 string input = Console.ReadLine();
-                
-            }
-            
+                var selectedStock = context.StockStatuses
+                    .SingleOrDefault(stock => stock.Isbn13 == input && stock.StoreId == currentStore.StoreId);
 
+                if (selectedStock != null)
+                {
+                    Console.WriteLine($"Found ISBN: {selectedStock.Isbn13}, Current Stock: {selectedStock.CurrentStock}");
+                    Console.WriteLine("Please enter the new stock quantity:");
+
+                    string stockInput = Console.ReadLine();
+
+                    
+                    if (int.TryParse(stockInput, out int newStock))
+                    {
+                        if(stockInput == "0")
+                        {
+                            Console.WriteLine("Do you want to remove this book from this store's stock-list entirely?\n1: Yes\n2: No");
+                            var choice = InputReader.SingleKey(2);
+                            if(choice == '1')
+                            {
+                                DatabaseManager.Remove(selectedStock, context);
+                                Console.WriteLine("Book has been removed");
+                            }
+                        }
+                        else if(stockInput != "0")
+                        {
+                            selectedStock.CurrentStock = newStock;
+                            context.SaveChanges();
+                            Console.WriteLine("Stock updated successfully!");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter a valid number for the stock quantity.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("The entered ISBN is not found for the selected store.");
+                }
+            }
         }
     }
 }
