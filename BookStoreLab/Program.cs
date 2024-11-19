@@ -37,7 +37,11 @@ namespace BookStoreLab
                         break;
                     case '3':
                         Console.Clear();
-                        //MenuFunctions.AddData();
+                        using (var context = new MyBookStoreContext())
+                        {
+                            MenuFunctions.AddData(context);
+                            Writer.AnyKeyReturn();
+                        }
                         break;
                     case '4':
                         Console.Clear();

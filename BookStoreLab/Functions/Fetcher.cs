@@ -26,7 +26,6 @@ namespace BookStoreLab.Functions
 
                 if (!storeId.HasValue)
                 {
-                    Writer.AnyKeyReturn();
                     Console.Clear();
                     break;
                 }
@@ -58,5 +57,24 @@ namespace BookStoreLab.Functions
                 }
             }
         }
+
+        public static void ListAuthors(MyBookStoreContext context)
+        {
+            var authors = context.Authors.ToList();
+            foreach (var author in authors)
+            {
+                Console.WriteLine($"ID {author.AuthorId}: {author.FirstName} {author.LastName}");
+            }
+        }
+
+        public static void ListPublishers(MyBookStoreContext context)
+        {
+            var publishers = context.Publishers.ToList();
+            foreach (var publisher in publishers)
+            {
+                Console.WriteLine($"ID: {publisher.PublisherId}, {publisher.PublisherName}");
+            }
+        }
+
     }
 }

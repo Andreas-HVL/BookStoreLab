@@ -1,4 +1,5 @@
 ﻿using BookStoreLab.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +49,23 @@ namespace BookStoreLab.Functions
                 else
                 {
                     Console.WriteLine("Invalid input. Please enter a numeric ID or 'Q' to quit.");
+                }
+            }
+        }
+
+        public static decimal GetValidDecimalInput(string prompt)
+        {
+            while (true)
+            {
+                Console.Write(prompt);
+                string input = Console.ReadLine();
+                if (decimal.TryParse(input, out decimal result))
+                {
+                    return result;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
                 }
             }
         }
